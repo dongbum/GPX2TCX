@@ -1,12 +1,8 @@
-from flask import Flask
+from gpx2tcx import create_app
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
+application = create_app()
 
 if __name__ == '__main__':
-    app.run()
+    print('starting test server...')
+
+    application.run(host='0.0.0.0', port=5000, debug=True)
