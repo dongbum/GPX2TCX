@@ -16,4 +16,7 @@ def not_found(error):
 def create_app(config_filepath='resource/config.cfg'):
     gpx2tcx_app = Flask(__name__)
 
+    from gpx2tcx.blueprint import gpx2tcx
+    gpx2tcx_app.register_blueprint(gpx2tcx)
+
     return gpx2tcx_app
