@@ -1,1 +1,1 @@
-__all__ = ["upload"]
+__all__ = ["index","upload"]

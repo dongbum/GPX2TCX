@@ -22,6 +22,7 @@ def create_app(config_filepath='resource/config.cfg'):
     gpx2tcx_app = Flask(__name__)
 
     # 뷰 함수 모듈
+    from gpx2tcx.controller import index
     from gpx2tcx.controller import upload
 
     # 블루프린트
