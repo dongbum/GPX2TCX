@@ -21,6 +21,12 @@ def url_for_other_page(page):
 def create_app(config_filepath='resource/config.cfg'):
     gpx2tcx_app = Flask(__name__)
 
+    # 환경설정 로드
+    from gpx2tcx.gpx2tcx_config import GPX2TCX_Config
+    gpx2tcx_app.config.from_object(GPX2TCX_Config)
+    gpx2tcx_app.config.from_pyfile(config_filepath, silent=True)
+    print_settings(gpx2tcx_app.config.items())
+
     # 뷰 함수 모듈
     from gpx2tcx.controller import index
     from gpx2tcx.controller import upload

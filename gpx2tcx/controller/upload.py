@@ -1,6 +1,7 @@
 from flask import render_template, request
 from werkzeug.utils import secure_filename
 from gpx2tcx.blueprint import gpx2tcx
+from xml.dom.minidom import *
 import os, uuid
 
 ALLOWED_EXTENSIONS = set(['gpx'])
