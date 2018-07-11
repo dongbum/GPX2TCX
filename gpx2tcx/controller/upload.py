@@ -10,6 +10,6 @@ def upload():
 def upload_process():
     if request.method == 'POST':
         f = request.files['gpxfile']
-        f.save('/uploaded/' + secure_filename(f.filename))
+        f.save('D:/Work/gpx2tcx.git/uploaded/' + secure_filename(f.filename))
 
     return '파일 업로드 성공'
