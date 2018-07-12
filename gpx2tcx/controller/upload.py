@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, current_app
 from werkzeug.utils import secure_filename
 from gpx2tcx.blueprint import gpx2tcx
 from xml.dom.minidom import *
@@ -20,10 +20,14 @@ def upload_process():
 
     try:
         if upload_gpx and __allowed_file(upload_gpx.filename):
-            ext = (upload_gpx.filename).rsplit('.', 1)[1]
+            ext = upload_gpx.filename.rsplit('.', 1)[1]
 
-            upload_folder = os.path.join(gpx2tcx.root_path, gpx2tcx.config['UPLOAD_FOLDER'])
-            filename = secure_filename(upload_gpx.filename + '_' + str(uuid.uuid4()) + '.' + ext)
+            upload_folder = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+
+            if False == os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            filename = secure_filename(upload_gpx.filename.rsplit('.', 1)[0] + '_' + str(uuid.uuid4()) + '.' + ext)
             upload_gpx.save(os.path.join(upload_folder, filename))
 
         return '파일 업로드 성공'
