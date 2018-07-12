@@ -1,7 +1,7 @@
 from flask import render_template, request, current_app
 from werkzeug.utils import secure_filename
 from gpx2tcx.blueprint import gpx2tcx
-from xml.dom.minidom import *
+from xml.dom import minidom
 import os, uuid
 
 ALLOWED_EXTENSIONS = set(['gpx'])
@@ -30,7 +30,28 @@ def upload_process():
             filename = secure_filename(upload_gpx.filename.rsplit('.', 1)[0] + '_' + str(uuid.uuid4()) + '.' + ext)
             upload_gpx.save(os.path.join(upload_folder, filename))
 
-        return '파일 업로드 성공'
+            gpx_xmldoc = minidom.parse(os.path.join(upload_folder, filename))
+            gpx_xmldoc = gpx_xmldoc.firstChild
+
+            # print('---------------------------------------------------------------------')
+            # print(gpx_xmldoc.toxml())
+
+            metadata_items = gpx_xmldoc.getElementsByTagName('metadata')
+            for metadata_item in metadata_items:
+                print('---------------------------------------------------------------------')
+                print(metadata_item.toxml())
+
+            wpt_items = gpx_xmldoc.getElementsByTagName('wpt')
+            for wpt_item in wpt_items:
+                print('---------------------------------------------------------------------')
+                print(wpt_item.toxml())
+
+            trk_items = gpx_xmldoc.getElementsByTagName('trk')
+            for trk_item in trk_items:
+                print('---------------------------------------------------------------------')
+                print(trk_item.toxml())
+
+        return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
 
     except Exception as e:
         raise e
