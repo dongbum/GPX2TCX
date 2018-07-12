@@ -47,9 +47,13 @@ def upload_process():
                 print(wpt_item.toxml())
 
             trk_items = gpx_xmldoc.getElementsByTagName('trk')
-            for trk_item in trk_items:
+
+            trkseg_items = trk_items[0].getElementsByTagName('trkseg')
+            trkpt_items = trkseg_items[0].getElementsByTagName('trkpt')
+
+            for trkpt_item in trkpt_items:
                 print('---------------------------------------------------------------------')
-                print(trk_item.toxml())
+                print(trkpt_item.toxml())
 
         return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
 
