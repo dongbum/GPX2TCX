@@ -4,6 +4,7 @@ class TCXMaker(object):
 
     tcx_xmldoc = Document()
     tcx_root_node = None
+    course_node = None
     track_node = None
 
     def __init__(self):
@@ -22,6 +23,7 @@ class TCXMaker(object):
         # Course 노드를 만들어서 추가
         course_node = self.tcx_xmldoc.createElement('Course')
         courses_node.appendChild(course_node)
+        self.course_node = course_node
 
         # Track 노드를 만들어서 추가
         track_node = self.tcx_xmldoc.createElement('Track')
@@ -90,6 +92,47 @@ class TCXMaker(object):
         # DistanceMeters 노드를 만들어서 추가
         dist_node = self.tcx_xmldoc.createElement('DistanceMeters')
         trackpoint_node.appendChild(dist_node)
+
+    def add_coursepoint(self, name, lat, lon):
+        coursepoint_node = self.tcx_xmldoc.createElement('CoursePoint')
+        self.course_node.appendChild(coursepoint_node)
+
+        name_node = self.tcx_xmldoc.createTextNode('Name')
+        coursepoint_node.appendChild(name_node)
+
+        name_text_node = self.tcx_xmldoc.createTextNode(name)
+        name_node.appendChild(name_text_node)
+
+        time_node = self.tcx_xmldoc.createTextNode('Time')
+        coursepoint_node.appendChild(time_node)
+
+        time_text_node = self.tcx_xmldoc.createTextNode('2010-01-01T01:26:32Z')
+        time_node.appendChild(time_text_node)
+
+        # position 노드를 만들어서 추가
+        position_node = self.tcx_xmldoc.createElement('Position')
+        coursepoint_node.appendChild(position_node)
+
+        # LatitudeDegrees 노드를 만들어서 추가
+        lat_node = self.tcx_xmldoc.createElement('LatitudeDegrees')
+        position_node.appendChild(lat_node)
+
+        lat_text_node = self.tcx_xmldoc.createTextNode(lat)
+        lat_node.appendChild(lat_text_node)
+
+        # LongitudeDegrees 노드를 만들어서 추가
+        lon_node = self.tcx_xmldoc.createElement('LongitudeDegrees')
+        position_node.appendChild(lon_node)
+
+        lon_text_node = self.tcx_xmldoc.createTextNode(lon)
+        lon_node.appendChild(lon_text_node)
+
+        # position 노드를 만들어서 추가
+        pointtype_node = self.tcx_xmldoc.createElement('PointType')
+        coursepoint_node.appendChild(pointtype_node)
+
+        pointtype_text_node = self.tcx_xmldoc.createTextNode('Generic')
+        pointtype_node.appendChild(pointtype_text_node)
 
     def get_tcx(self):
         return self.tcx_xmldoc.toprettyxml()

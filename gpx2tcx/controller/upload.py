@@ -63,16 +63,8 @@ def upload_process():
             trkseg_items = trk_items[0].getElementsByTagName('trkseg')
             trkpt_items = trkseg_items[0].getElementsByTagName('trkpt')
 
-            trkpt_item_lists = []
             for trkpt_item in trkpt_items:
-                print('---------------------------------------------------------------------')
-                # print(trkpt_item.toxml())
-
-                print('lat:' + trkpt_item.getAttribute('lat'))
-                print('lon:' + trkpt_item.getAttribute('lon'))
                 ele = trkpt_item.getElementsByTagName('ele')
-                print('ele:' + ele[0].firstChild.data)
-
                 tcx_maker.add_trackpoint(trkpt_item.getAttribute('lat'), trkpt_item.getAttribute('lon'), ele[0].firstChild.data)
 
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
