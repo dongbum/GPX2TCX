@@ -46,7 +46,7 @@ def upload_process():
             #
 
             tcx_maker = TCXMaker()
-            tcx_maker.add_name('TCX making test')
+
 
             metadata_items = gpx_xmldoc.getElementsByTagName('metadata')
             for metadata_item in metadata_items:
@@ -59,6 +59,9 @@ def upload_process():
                 tcx_maker.add_coursepoint(wpt_item.getAttribute('lat'), wpt_item.getAttribute('lon'), wpt_name[0].firstChild.data)
 
             trk_items = gpx_xmldoc.getElementsByTagName('trk')
+
+            course_name = trk_items[0].getElementsByTagName('name')[0].firstChild.data
+            tcx_maker.add_name(course_name)
 
             trkseg_items = trk_items[0].getElementsByTagName('trkseg')
             trkpt_items = trkseg_items[0].getElementsByTagName('trkpt')
