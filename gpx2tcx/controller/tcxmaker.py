@@ -135,4 +135,4 @@ class TCXMaker(object):
         pointtype_node.appendChild(pointtype_text_node)
 
     def get_tcx(self):
-        return self.tcx_xmldoc.toprettyxml()
+        return self.tcx_xmldoc.toprettyxml(encoding='UTF-8')
