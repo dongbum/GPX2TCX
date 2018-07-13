@@ -46,6 +46,7 @@ def upload_process():
             #
 
             tcx_maker = TCXMaker()
+            tcx_maker.add_name('TCX making test')
 
             metadata_items = gpx_xmldoc.getElementsByTagName('metadata')
             for metadata_item in metadata_items:
@@ -62,6 +63,7 @@ def upload_process():
             trkseg_items = trk_items[0].getElementsByTagName('trkseg')
             trkpt_items = trkseg_items[0].getElementsByTagName('trkpt')
 
+            trkpt_item_lists = []
             for trkpt_item in trkpt_items:
                 print('---------------------------------------------------------------------')
                 # print(trkpt_item.toxml())
@@ -71,9 +73,11 @@ def upload_process():
                 ele = trkpt_item.getElementsByTagName('ele')
                 print('ele:' + ele[0].firstChild.data)
 
+                tcx_maker.add_trackpoint(trkpt_item.getAttribute('lat'), trkpt_item.getAttribute('lon'), ele[0].firstChild.data)
+
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename) + '<br> + ' + tcx_xmldoc.toprettyxml(indent="  ")
-        return tcx_maker.GetTCX()
+        return tcx_maker.get_tcx()
 
     except Exception as e:
         raise e
