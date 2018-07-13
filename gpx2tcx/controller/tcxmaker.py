@@ -93,17 +93,17 @@ class TCXMaker(object):
         dist_node = self.tcx_xmldoc.createElement('DistanceMeters')
         trackpoint_node.appendChild(dist_node)
 
-    def add_coursepoint(self, name, lat, lon):
+    def add_coursepoint(self, lat, lon, wpt_name):
         coursepoint_node = self.tcx_xmldoc.createElement('CoursePoint')
         self.course_node.appendChild(coursepoint_node)
 
-        name_node = self.tcx_xmldoc.createTextNode('Name')
-        coursepoint_node.appendChild(name_node)
+        wpt_name_node = self.tcx_xmldoc.createElement('Name')
+        coursepoint_node.appendChild(wpt_name_node)
 
-        name_text_node = self.tcx_xmldoc.createTextNode(name)
-        name_node.appendChild(name_text_node)
+        wpt_name_text_node = self.tcx_xmldoc.createTextNode(wpt_name)
+        wpt_name_node.appendChild(wpt_name_text_node)
 
-        time_node = self.tcx_xmldoc.createTextNode('Time')
+        time_node = self.tcx_xmldoc.createElement('Time')
         coursepoint_node.appendChild(time_node)
 
         time_text_node = self.tcx_xmldoc.createTextNode('2010-01-01T01:26:32Z')

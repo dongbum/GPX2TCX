@@ -55,8 +55,8 @@ def upload_process():
 
             wpt_items = gpx_xmldoc.getElementsByTagName('wpt')
             for wpt_item in wpt_items:
-                print('---------------------------------------------------------------------')
-                print(wpt_item.toxml())
+                wpt_name = wpt_item.getElementsByTagName('name')
+                tcx_maker.add_coursepoint(wpt_item.getAttribute('lat'), wpt_item.getAttribute('lon'), wpt_name[0].firstChild.data)
 
             trk_items = gpx_xmldoc.getElementsByTagName('trk')
 
