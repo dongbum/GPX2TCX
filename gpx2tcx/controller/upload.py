@@ -37,6 +37,9 @@ def upload_process():
             gpx_xmldoc = minidom.parse(os.path.join(upload_folder, filename))
             gpx_xmldoc = gpx_xmldoc.firstChild
 
+            # print('---------------------------------------------------------------------')
+            # print(gpx_xmldoc.toxml())
+
             #
             # 여기서부터 tcx 파일 생성 시작
             #
@@ -62,10 +65,22 @@ def upload_process():
 
             # Track 노드를 만들어서 추가
             track_node = tcx_xmldoc.createElement('Track')
+            course_node.appendChild(track_node)
 
+            # Trackpoint 노드를 만들어서 추가
+            # 루프 시작
+            trackpoint_node = tcx_xmldoc.createElement('TrackPoint')
+            track_node.appendChild(trackpoint_node)
 
-            # print('---------------------------------------------------------------------')
-            # print(gpx_xmldoc.toxml())
+            # Time 노드를 만들어서 추가
+            time_node = tcx_xmldoc.createElement('Time')
+            trackpoint_node.appendChild(time_node)
+
+            # Time 값 입력
+            time_text_node = tcx_xmldoc.createTextNode('2010-01-01T00:00:00Z')
+            time_node.appendChild(time_text_node)
+
+            # 루프 종료
 
             metadata_items = gpx_xmldoc.getElementsByTagName('metadata')
             for metadata_item in metadata_items:
