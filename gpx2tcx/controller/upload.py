@@ -46,7 +46,6 @@ def upload_process():
             #
 
             tcx_maker = TCXMaker()
-            tcx_result = tcx_maker.GetTCX()
 
             metadata_items = gpx_xmldoc.getElementsByTagName('metadata')
             for metadata_item in metadata_items:
@@ -65,13 +64,16 @@ def upload_process():
 
             for trkpt_item in trkpt_items:
                 print('---------------------------------------------------------------------')
-                print(trkpt_item.toxml())
+                # print(trkpt_item.toxml())
+
                 print('lat:' + trkpt_item.getAttribute('lat'))
                 print('lon:' + trkpt_item.getAttribute('lon'))
+                ele = trkpt_item.getElementsByTagName('ele')
+                print('ele:' + ele[0].firstChild.data)
 
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename) + '<br> + ' + tcx_xmldoc.toprettyxml(indent="  ")
-        return tcx_result
+        return tcx_maker.GetTCX()
 
     except Exception as e:
         raise e
