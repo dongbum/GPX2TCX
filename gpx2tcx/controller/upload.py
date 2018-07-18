@@ -1,10 +1,11 @@
-from flask import render_template, request, current_app
+from flask import render_template, request, current_app, send_file, send_from_directory
 from werkzeug.utils import secure_filename
 from gpx2tcx.blueprint import gpx2tcx
 from xml.dom import minidom
 from xml.dom.minidom import Document
 import os, uuid
 from gpx2tcx.controller.tcxmaker import TCXMaker
+from io import StringIO, BytesIO
 
 ALLOWED_EXTENSIONS = set(['gpx'])
 
@@ -72,8 +73,14 @@ def upload_process():
 
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename) + '<br> + ' + tcx_xmldoc.toprettyxml(indent="  ")
-        return tcx_maker.get_tcx()
 
+        # return tcx_maker.get_tcx()
+
+        # 생성된 tcx 파일을 웹브라우저로 다운로드
+        buffer = BytesIO()
+        buffer.write(tcx_maker.get_tcx())
+        buffer.seek(0)
+        return send_file(buffer, as_attachment=True, attachment_filename=upload_gpx.filename.rsplit('.', 1)[0] + '.tcx', mimetype='text/xml')
     except Exception as e:
         raise e
 
