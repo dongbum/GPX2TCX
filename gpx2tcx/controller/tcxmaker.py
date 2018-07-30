@@ -56,6 +56,61 @@ class TCXMaker(object):
         id_text_node = self.tcx_xmldoc.createTextNode(name)
         id_node.appendChild(id_text_node)
 
+    def add_lap(self, totaltime_sec, distance, begin_lat, begin_lon, end_lat, end_lon):
+        # course 노드에 Lap 노드 추가
+        lap_node = self.tcx_xmldoc.createElement('Lap')
+        self.course_node.appendChild(lap_node)
+
+        # TotalTimeSeconds 노드 추가
+        total_time_node = self.tcx_xmldoc.createElement('TotalTimeSeconds')
+        lap_node.appendChild(total_time_node)
+        total_time_node_text_node = self.tcx_xmldoc.createTextNode(totaltime_sec)
+        total_time_node.appendChild(total_time_node_text_node)
+
+        # DistanceMeters 노드 추가
+        distance_node = self.tcx_xmldoc.createElement('DistanceMeters')
+        lap_node.appendChild(distance_node)
+        distance_node_text_node = self.tcx_xmldoc.createTextNode(distance)
+        distance_node.appendChild(distance_node_text_node)
+
+        # BeginPosition 노드 추가
+        begin_node = self.tcx_xmldoc.createElement('BeginPosition')
+        lap_node.appendChild(begin_node)
+
+        # LatitudeDegrees 노드 추가
+        begin_lat_node = self.tcx_xmldoc.createElement('LatitudeDegrees')
+        begin_node.appendChild(begin_lat_node)
+        begin_lat_node_text_node = self.tcx_xmldoc.createTextNode(begin_lat)
+        begin_lat_node.appendChild(begin_lat_node_text_node)
+
+        # LongitudeDegrees 노드 추가
+        begin_lon_node = self.tcx_xmldoc.createElement('LongitudeDegrees')
+        begin_node.appendChild(begin_lon_node)
+        begin_lon_node_text_node = self.tcx_xmldoc.createTextNode(begin_lon)
+        begin_lon_node.appendChild(begin_lon_node_text_node)
+
+        # BeginPosition 노드 추가
+        end_node = self.tcx_xmldoc.createElement('EndPosition')
+        lap_node.appendChild(end_node)
+
+        # LatitudeDegrees 노드 추가
+        end_lat_node = self.tcx_xmldoc.createElement('LatitudeDegrees')
+        end_node.appendChild(end_lat_node)
+        end_node_text_node = self.tcx_xmldoc.createTextNode(end_lat)
+        end_lat_node.appendChild(end_node_text_node)
+
+        # LongitudeDegrees 노드 추가
+        end_lon_node = self.tcx_xmldoc.createElement('LongitudeDegrees')
+        end_node.appendChild(end_lon_node)
+        end_lon_node_text_node = self.tcx_xmldoc.createTextNode(end_lon)
+        end_lon_node.appendChild(end_lon_node_text_node)
+
+        # Intensity 노드 추가
+        intensity_node = self.tcx_xmldoc.createElement('Intensity')
+        lap_node.appendChild(intensity_node)
+        intensity_node_text_node = self.tcx_xmldoc.createTextNode('Active')
+        intensity_node.appendChild(intensity_node_text_node)
+
     def add_trackpoint(self, lat, lon, ele):
         # Trackpoint 노드를 만들어서 추가
 

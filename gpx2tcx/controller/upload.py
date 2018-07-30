@@ -67,9 +67,23 @@ def upload_process():
             trkseg_items = trk_items[0].getElementsByTagName('trkseg')
             trkpt_items = trkseg_items[0].getElementsByTagName('trkpt')
 
+            begin_lat = ''
+            begin_lon = ''
+            end_lat = ''
+            end_lon = ''
+
             for trkpt_item in trkpt_items:
                 ele = trkpt_item.getElementsByTagName('ele')
                 tcx_maker.add_trackpoint(trkpt_item.getAttribute('lat'), trkpt_item.getAttribute('lon'), ele[0].firstChild.data)
+
+                if begin_lat == '' and begin_lon == '':
+                    begin_lat = trkpt_item.getAttribute('lat')
+                    begin_lon = trkpt_item.getAttribute('lon')
+
+                end_lat = trkpt_item.getAttribute('lat')
+                end_lon = trkpt_item.getAttribute('lon')
+
+            tcx_maker.add_lap('0', '0', begin_lat, begin_lon, end_lat, end_lon)
 
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename)
         # return '파일 업로드 성공 : ' + os.path.join(upload_folder, filename) + '<br> + ' + tcx_xmldoc.toprettyxml(indent="  ")
