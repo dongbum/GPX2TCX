@@ -31,6 +31,12 @@ class TCXMaker(object):
         self.track_node = track_node
 
     def add_name(self, name):
+        course_name_node = self.tcx_xmldoc.createElement('Name')
+        self.course_node.appendChild(course_name_node)
+
+        course_name_node_text_node = self.tcx_xmldoc.createTextNode(name)
+        course_name_node.appendChild(course_name_node_text_node)
+
         folder_node = self.tcx_xmldoc.createElement('Folders')
         self.tcx_root_node.appendChild(folder_node)
 
