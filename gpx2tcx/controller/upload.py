@@ -97,4 +97,4 @@ def upload_process():
     except Exception as e:
         raise e
 
-    return '파일 업로드 실패'
+    return render_template('upload.html')
