@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.6"
+env:
+  - FLASK_ENV=development
 install:
   - pip install -r requirements.txt
   - pip install coverage
